@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+  <h1>📋 Submitted Suggestions</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
+
+  {% if suggestions %}
+    <ul>
+      {% for s in suggestions %}
+        <li>
+          <strong>{{ s.title }}</strong><br>
+          {{ s.description }}<br>
+          <small>ID: {{ s.id }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+    <form action="/clear" method="POST" onsubmit="return confirm('Clear all suggestions?')">
+      <button type="submit" class="danger">Clear All</button>
+    </form>
+  {% else %}
+    <p>No suggestions yet.</p>
+  {% endif %}
+
+  <p style="text-align:center;margin-top:20px;">
+    <a href="{{ url_for('logout') }}">🚪 back</a>
+  </p>
+</div>
+</body>
+</html>

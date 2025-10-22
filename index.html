@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anonymous Suggestion Box</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+  <h1>💡 Suggestion Box</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
+
+  <form action="/submit" method="POST">
+    <input type="text" name="title" placeholder="Suggestion Title" required>
+    <textarea name="description" placeholder="Describe your suggestion..." required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <p style="text-align:center;margin-top:20px;">
+    <a href="{{ url_for('admin') }}">Admin Login</a>
+  </p>
+</div>
+</body>
+</html>
